@@ -15,8 +15,43 @@
              el: '#app',
              // data properties: what you want to render
              data: {
-                 message: 'Hello Vue.js'
-             }
+                 message: 'Hello Vue.js LifeCycle'
+             },
+             beforeCreate: function () {
+                 console.log("beforeCreate");
+             },
+             created: function() {
+                 console.log("created");
+                 console.log(this.$data.message);
+             },
+              beforeMount: function() {
+                  console.log("beforeMount")
+                  console.log("template --> render()");
+                  console.log("but right before render() function call");
+              },
+              mounted: function() {
+                  console.log("mounted");
+                  console.log("you can now access DOM, control DOM logic");
+                  this.message = "Is it the time to learn Vue js?";
+              },
+              beforeUpdate: function() {
+                console.log("beforeUpdate");
+                console.log("reactive to changed data");
+                console.log("$watch props to watch data");
+                console.log("can access the updated data, but not rendered yet");
+              },
+              updated: function() {
+                  console.log("updated");
+                  console.log("DOM control logic can be added here");
+                  console.log("use computed/watch props to change data at this point");
+              },
+              beforeDestory: function() {
+                  console.log("before destroying Vue instances");
+                  console.log("still access the instance, delete data");
+              },
+              destroyed: function() {
+                  console.log("destroyed");
+              }
          });
         </script>
     </body>
