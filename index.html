@@ -4,55 +4,86 @@
     </head>
     <body>
         <div id="app">
-            {{ message }}
+          <h3> 뷰 인스턴스 지역 전역 1 </h3>
+          <my-global-comp></my-global-comp>
+          <my-local-component></my-local-component>
+          {{ message }}
+        </div>
+        <hr>
+        <div id ="app2">
+          <h3> 뷰 인스턴스 지역 전역 2 </h3>
+          <my-global-comp></my-global-comp>
+          <my-local-component></my-local-component>
+          {{ message }}
         </div>
         <script src = "https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
         <script>
+          // 뷰 라이브러리를 로딩한 뒤, 접근 가능한 Vue 변수를 이용하여
+          // 전역 컴포넌트를 등록합니다.
+          // 전역 컴포넌트를 instance에 등록하려면
+          // Vue 생성자에서 .component()메소드를 호출합니다.
+          // 전역 컴포넌트 등록
+          Vue.component('my-global-comp', {
+              template: '<div>전역컴포넌트입니다.</div>'
+          });
+
+          // 지역 컴포넌트 내용
+          var localcomp = {
+            template: '<div>지역컴포넌트입니다.</div>'
+          };
             // this is CREATING INSTANCE part
             // new CONSTRUCTOR
-         new Vue({
-             // el properties: where the instance will be rendered (DOM location)
-             el: '#app',
-             // data properties: what you want to render
-             data: {
-                 message: 'Hello Vue.js LifeCycle'
-             },
-             beforeCreate: function () {
-                 console.log("beforeCreate");
-             },
-             created: function() {
-                 console.log("created");
-                 console.log(this.$data.message);
-             },
-              beforeMount: function() {
-                  console.log("beforeMount")
-                  console.log("template --> render()");
-                  console.log("but right before render() function call");
-              },
-              mounted: function() {
-                  console.log("mounted");
-                  console.log("you can now access DOM, control DOM logic");
-                  this.message = "Is it the time to learn Vue js?";
-              },
-              beforeUpdate: function() {
-                console.log("beforeUpdate");
-                console.log("reactive to changed data");
-                console.log("$watch props to watch data");
-                console.log("can access the updated data, but not rendered yet");
-              },
-              updated: function() {
-                  console.log("updated");
-                  console.log("DOM control logic can be added here");
-                  console.log("use computed/watch props to change data at this point");
-              },
-              beforeDestory: function() {
-                  console.log("before destroying Vue instances");
-                  console.log("still access the instance, delete data");
-              },
-              destroyed: function() {
-                  console.log("destroyed");
-              }
-         });
+          new Vue({
+            el: "#app2"
+          });
+          new Vue({
+               // el properties: where the instance will be rendered (DOM location)
+               el: '#app',
+               // data properties: what you want to render
+               data: {
+                   message: 'Hello Vue.js LifeCycle'
+               },
+               // 지역 컴포넌트 등록
+               components: {
+                 'my-local-component': localcomp
+               },
+               beforeCreate: function () {
+                   console.log("beforeCreate");
+               },
+               created: function() {
+                   console.log("created");
+                   console.log(this.$data.message);  // accessing old message
+               },
+                beforeMount: function() {
+                    console.log("beforeMount")
+                    console.log("template --> render()");
+                    console.log("but right before render() function call");
+                },
+                mounted: function() {
+                    console.log("mounted");
+                    console.log("you can now access DOM, control DOM logic");
+                    this.message = "Is it the time to learn Vue js?";
+                },
+                beforeUpdate: function() {
+                  console.log("beforeUpdate");
+                  console.log("reactive to changed data");
+                  console.log("$watch props to watch data");
+                  console.log("can access the updated data, but not rendered yet");
+                },
+                updated: function() {
+                    console.log("updated");
+                    console.log(this.$data.message);  // accessing the updated message
+                    console.log("DOM control logic can be added here");
+                    console.log("use computed/watch props to change data at this point");
+                },
+                beforeDestory: function() {
+                    console.log("before destroying Vue instances");
+                    console.log("still access the instance, delete data");
+                },
+                destroyed: function() {
+                    console.log("destroyed");
+                }
+           });
         </script>
     </body>
 </html>
