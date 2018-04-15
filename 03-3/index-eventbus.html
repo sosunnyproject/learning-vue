@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Components Communication</title>
+
+  </head>
+
+  <body>
+    <div id="app">
+      <child-cmp></child-cmp>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      // eventBus 를 위한 인스턴스 생성
+      var eventBus = new Vue();
+
+      //보내는 컴포넌트 $emit
+      Vue.component('child-cmp', {
+        template: '<div>하위 컴포넌트 영역입니다.<button v-on:click="methodName">show</button></div>',
+        methods: {
+          methodName: function() {
+            eventBus.$emit('eventName', 100);
+            }
+          },
+      });
+
+     // 받는 컴포넌트 $on
+     var app = new Vue({
+       el:'#app',
+       data: {
+         message: 'Hello Vue! this is from Parent Comp.'
+       },
+       created: function() {
+         eventBus.$on('eventName', function(value){
+           console.log("이벤트 전달받음. 전달받은 값: ", value);
+         });
+       }
+     });
+    </script>
+  </body>
+</html>

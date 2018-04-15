@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Components Communication</title>
+
+  </head>
+
+  <body>
+    <div id="app">
+      <child-cmp v-bind:propsdata="message"></child-cmp>
+    </div>
+    <script src = "https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      // 뷰 인스턴스에 컴포넌트를 등록한다.
+      // 인스턴스는 상위 컴,
+      // 추가된 컴포넌트는 하위 컴이 된다.
+      Vue.component('child-cmp', {
+        props: ['propsdata'],
+        template: '<p> {{ propsdata }} </p>'
+      });
+
+     // 뷰 인스턴스
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue! this message is passed from Parent component, which is Vue instance here'
+        }
+      });
+    </script>
+  </body>
+</html>
