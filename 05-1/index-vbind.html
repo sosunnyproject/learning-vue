@@ -17,6 +17,8 @@
         <p>{{ message }}</p>
         <p>{{ message + "!!!" }}</p>
         <p>{{ message.split('').reverse().join('') }}</p>
+        <p> I reccomend this way...</p>
+        <p> {{ reversedMessage }}</p>
     </div>
 
 
@@ -38,6 +40,11 @@
             el: '#app2',
             data: {
                 message: 'Hello Vue.js!'
+            },
+            computed: {
+                reversedMessage: function() {
+                    return this.message.split('').reverse().join('');
+                }
             }
         });
     </script>

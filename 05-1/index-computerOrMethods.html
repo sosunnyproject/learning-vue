@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Computed or Methods Sample</title>
+</head>
+<body>
+    
+    <div id = 'app'>
+        <p> {{ message }} </p>
+        <button v-on:click="reverseMsg">문자열 역순으로~</button>
+        <p> {{ computedMessage }}</p>
+    </div>
+
+    <script src = "https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        // index-vbind.html example also used computed method
+
+        new Vue({
+            el: '#app',
+            data: {
+                // this.message points this one..
+                message: 'Hello, Vue.js!',
+                
+            },
+            // methods: 호출할 때만 로직이 수행된다. 수동적으로 갱신됨
+            methods: {
+                reverseMsg: function() {
+                    this.message = this.message.split('').reverse().join('');
+                    return this.message;
+                }
+            },
+            // 데이터 값이 변경되면 자동적으로 갱신함.
+            computed: {
+                computedMessage: function() {
+                    return this.message.split('').reverse().join('');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
