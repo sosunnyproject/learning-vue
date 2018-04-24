@@ -18,8 +18,9 @@
     methods: {
       addTodo() {
         if (this.newTodoItem !== "") {
-          var value = this.newTodoItem && this.newTodoItem.trim();
-          localStorage.setItem("key", value);
+          var value = this.newTodoItem && this.newTodoItem.trim();          
+          // localStorage.setItem(value, value);
+          this.$emit('addTodo', value);     // using $emit, instead of saving directly to local Storage
           this.clearInput();
         }
       },
@@ -47,7 +48,7 @@
   .addContainer {
     float: right;
     background: linear-gradient(to right, #6478FB, #8763FB);
-    display: inline-block;
+    display: block;
     width: 3rem;
     border-radius: 0 5px 5px 0;
   }
