@@ -20,7 +20,7 @@
         if (this.newTodoItem !== "") {
           var value = this.newTodoItem && this.newTodoItem.trim();          
           // localStorage.setItem(value, value);
-          this.$emit('addTodo', value);     // using $emit, instead of saving directly to local Storage
+          this.$emit('addTodo', value); // using $emit, instead of saving directly to local Storage
           this.clearInput();
         }
       },

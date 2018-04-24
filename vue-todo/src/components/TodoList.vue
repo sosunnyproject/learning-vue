@@ -1,7 +1,7 @@
 <template>
   <section>
     <ul>
-      <li v-for="(todoItem, index) in todoItems" class="shadow">
+      <li v-for="(todoItem, index) in propsdata" class="shadow">
         <i class="checkBtn fa fa-check" aria-hidden="true"></i>
         {{ todoItem }}
         <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
@@ -14,26 +14,12 @@
 
 <script>
   export default {
-    props: ['propsdata'],
+    props:['propsdata'],
+    // 그전에 있던 todoitems data는 삭제. 
+    // App에서 넘어오는 propsdata가 대체한다.
     
-    data() {
-      return {
-        todoItems: []
-      }
-    },
-    // 인스턴스 생성 직후에
-    // 로컬 스토리지의 데이터를 ==> 뷰 데이터로 옮긴다. 
-    created() {
-      if (localStorage.length > 0) {
-        for (var i = 0;i<localStorage.length; i++) {
-          // push is JS API 
-          // that adds array item at the end of array
-          if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
-            this.todoItems.push(localStorage.key(i));
-          }
-        }
-      }
-    },
+    // 여기 있던 created()는 App.vue 로 옮긴다. 
+
     methods: {
       removeTodo(todoItem, index) {
         localStorage.removeItem(todoItem);
